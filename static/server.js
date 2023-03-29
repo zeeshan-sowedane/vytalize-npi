@@ -2,7 +2,7 @@ const express = require("express");
 const { Pool } = require("pg");
 const pool = new Pool({
   connectionString:
-    "postgresql://postgres:mysecretpassword@localhost:5432/message_boards",
+    "postgres://vytalize_user:DNAqAch20oNKBGlVT1NerBfccGhkstfT@dpg-cghds6fdvk4ml9u02hsg-a/vytalize_npi",
 });
 
 async function init() {
