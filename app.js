@@ -5,14 +5,17 @@ const port = process.env.PORT || 3001;
 const { Pool } = require('pg');
 const Cursor = require('pg-cursor');
 
-const pool    = new Pool({
-  connectionString:
-    "postgres://vytalize_user:DNAqAch20oNKBGlVT1NerBfccGhkstfT@dpg-cghds6fdvk4ml9u02hsg-a/vytalize_npi",
+const pool = new Pool({
+    user: 'vytalize_user',
+    host: 'dpg-cghds6fdvk4ml9u02hsg-a.ohio-postgres.render.com',
+    database: 'vytalize_npi',
+    password: 'DNAqAch20oNKBGlVT1NerBfccGhkstfT',
+    port: 5432,
 });
 
 (async () => {
     const client = await pool.connect();
-    const query = 'SELECT * FROM npi_details';
+    const query = 'SELECT * FROM users';
 
     const cursor = await client.query(new Cursor(query));
 
