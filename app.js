@@ -12,7 +12,7 @@ const pool    = new Pool({
 
 (async () => {
     const client = await pool.connect();
-    const query = 'SELECT * FROM users';
+    const query = 'SELECT * FROM npi_details';
 
     const cursor = await client.query(new Cursor(query));
 
