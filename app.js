@@ -2,10 +2,9 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3001;
 
-const { Pool } = require('pg');
-const Cursor = require('pg-cursor');
+const { Client } = require('pg');
 
-const pool = new Pool({
+const client = new Client({
     user: 'vytalize_user',
     host: 'dpg-cghds6fdvk4ml9u02hsg-a.ohio-postgres.render.com',
     database: 'vytalize_npi',
@@ -13,23 +12,23 @@ const pool = new Pool({
     port: 5432,
 });
 
-(async () => {
-    const client = await pool.connect();
-    const query = 'SELECT * FROM users';
+const findRows = async (pattern) => {
+  const query = `
+            SELECT * FROM "npi_details"
+            WHERE  "provider_name"  LIKE $1;
+    `;
+    await client.connect();   // creates connection
+    try {
+        const { rows } =  await client.query(query, [pattern]);  // sends query
+        return rows;
+    } finally {
+        await client.end();   // closes connection
+    }
+};
 
-    const cursor = await client.query(new Cursor(query));
-
-    cursor.read(1, (err, rows) => {
-        console.log('We got the first row set');
-        console.log(rows);
-
-        cursor.read(1, (err, rows) => {
-            console.log('This is the next row set');
-            console.log(rows);
-        });
-    });
-})();
-
+findRows('A%') // Ailisa, Andrew
+    .then(result => console.table(result))
+    .catch(error => console.error(error.stack));
 
 
 app.get("/", (req, res) => res.type('html').send(html));
