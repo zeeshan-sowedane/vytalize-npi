@@ -2,6 +2,33 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3001;
 
+const { Pool } = require('pg');
+const Cursor = require('pg-cursor');
+
+const pool    = new Pool({
+  connectionString:
+    "postgres://vytalize_user:DNAqAch20oNKBGlVT1NerBfccGhkstfT@dpg-cghds6fdvk4ml9u02hsg-a/vytalize_npi",
+});
+
+(async () => {
+    const client = await pool.connect();
+    const query = 'SELECT * FROM users';
+
+    const cursor = await client.query(new Cursor(query));
+
+    cursor.read(1, (err, rows) => {
+        console.log('We got the first row set');
+        console.log(rows);
+
+        cursor.read(1, (err, rows) => {
+            console.log('This is the next row set');
+            console.log(rows);
+        });
+    });
+})();
+
+
+
 app.get("/", (req, res) => res.type('html').send(html));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
