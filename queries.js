@@ -7,7 +7,8 @@ const pool = new Pool({
 
 const getUserById = (request, response) => {
   const id = parseInt(request.params.id)
-  pool.query('SELECT * FROM npi_details WHERE npi = $1', (error, results) => {
+
+  pool.query('SELECT * FROM npi_details WHERE npi = $1', [id], (error, results) => {
     if (error) {
       throw error
     }
