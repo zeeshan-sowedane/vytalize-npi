@@ -31,7 +31,7 @@ findRows('A%') // Ailisa, Andrew
     .catch(error => console.error(error.stack));
 
 
-app.get("/", (req, res) => res.type('html').send(html));
+//app.get("/", (req, res) => res.type('html').send(html));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
