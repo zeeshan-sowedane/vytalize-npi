@@ -15,7 +15,7 @@ const client = new Client({
 const findRows = async (pattern) => {
   const query = `
             SELECT * FROM "npi_details"
-            WHERE  "provider_name"  LIKE $1;
+            WHERE  "provider_name"  LIKE 'BILAL';
     `;
     await client.connect();   // creates connection
     try {
