@@ -1,7 +1,7 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
   connectionString:
-    "postgres://vytalize_user:DNAqAch20oNKBGlVT1NerBfccGhkstfT@dpg-cghds6fdvk4ml9u02hsg-a.ohio-postgres.render.com/vytalize_npi?ssl=true",
+    "postgres://vytalize_user:DNAqAch20oNKBGlVT1NerBfccGhkstfT@dpg-cghds6fdvk4ml9u02hsg-a/vytalize_npi",
 })
 
 
@@ -12,7 +12,9 @@ const getUserById = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(200).json(results.rows)
+
+   response.status(200).json(results.rows[0])
+
   })
 }
 
